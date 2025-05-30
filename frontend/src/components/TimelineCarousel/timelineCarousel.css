@@ -1,0 +1,45 @@
+/* Timeline Carousel Custom Styles */
+.timeline-swiper {
+  padding: 10px 0 40px 0;
+}
+
+/* Custom styling for Swiper navigation arrows */
+.timeline-swiper .swiper-button-next,
+.timeline-swiper .swiper-button-prev {
+  color: var(--chakra-colors-blue-500);
+  width: 30px;
+  height: 30px;
+}
+
+/* Dark mode support for navigation arrows */
+:root[data-theme="dark"] .timeline-swiper .swiper-button-next,
+:root[data-theme="dark"] .timeline-swiper .swiper-button-prev {
+  color: var(--chakra-colors-teal-300);
+}
+
+/* Make sure slides have proper width */
+.timeline-swiper .swiper-slide {
+  width: auto;
+  height: auto;
+}
+
+/* Custom styling for pagination bullets */
+.timeline-swiper .swiper-pagination-bullet {
+  background: var(--chakra-colors-gray-400);
+  opacity: 0.7;
+}
+
+.timeline-swiper .swiper-pagination-bullet-active {
+  background: var(--chakra-colors-blue-500);
+  opacity: 1;
+}
+
+/* Dark mode support for pagination */
+:root[data-theme="dark"] .timeline-swiper .swiper-pagination-bullet-active {
+  background: var(--chakra-colors-teal-300);
+}
+
+/* Add smooth transitions */
+.timeline-swiper .swiper-slide-active {
+  transition: transform 0.3s ease;
+}

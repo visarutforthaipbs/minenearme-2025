@@ -1,0 +1,25 @@
+/* Custom Fonts Configuration */
+
+@font-face {
+  font-family: "DB Helvethaica X";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/font/dbhelvethaicax-webfont.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "DB Helvethaica X";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/assets/font/dbhelvethaicaxmed-webfont.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "DB Helvethaica X";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/assets/font/dbhelvethaicaxbd-webfont.woff2") format("woff2");
+}

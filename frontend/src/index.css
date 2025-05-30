@@ -1,0 +1,234 @@
+/* Reset CSS */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+}
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+/* ==========================================
+   MINING PATTERN UTILITIES
+   ========================================== */
+
+/* Base pattern class */
+.mining-pattern {
+  background-image: url("/assets/patterns/mnm-pattern.svg");
+  background-repeat: repeat;
+  background-size: 200px auto; /* Adjust size as needed */
+}
+
+/* Subtle background overlay (low opacity) */
+.mining-pattern-subtle {
+  position: relative;
+}
+
+.mining-pattern-subtle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/assets/patterns/mnm-pattern.svg");
+  background-repeat: repeat;
+  background-size: 300px auto;
+  opacity: 0.05; /* Very subtle */
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Medium opacity for section backgrounds */
+.mining-pattern-medium {
+  position: relative;
+}
+
+.mining-pattern-medium::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/assets/patterns/mnm-pattern.svg");
+  background-repeat: repeat;
+  background-size: 250px auto;
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Card background variant */
+.mining-pattern-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.mining-pattern-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/assets/patterns/mnm-pattern.svg");
+  background-repeat: repeat;
+  background-size: 150px auto;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Border pattern */
+.mining-pattern-border {
+  border-image: url("/assets/patterns/mnm-pattern.svg") 30 repeat;
+  border-width: 4px;
+  border-style: solid;
+}
+
+/* Larger pattern for hero sections */
+.mining-pattern-hero {
+  position: relative;
+}
+
+.mining-pattern-hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/assets/patterns/mnm-pattern.svg");
+  background-repeat: repeat;
+  background-size: 400px auto;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure content stays above pattern */
+.mining-pattern-subtle > *,
+.mining-pattern-medium > *,
+.mining-pattern-card > *,
+.mining-pattern-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Loading state with pattern */
+.loading-with-pattern {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  background-image: url("/assets/patterns/mnm-pattern.svg");
+  background-repeat: repeat;
+  background-size: 100px auto;
+  opacity: 0.3;
+  animation: patternPulse 2s ease-in-out infinite;
+}
+
+@keyframes patternPulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.15;
+  }
+}
+
+/* Empty state with pattern */
+.empty-state-pattern {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  padding: 2rem;
+  background-image: url("/assets/patterns/mnm-pattern.svg");
+  background-repeat: repeat;
+  background-size: 200px auto;
+  opacity: 0.1;
+  text-align: center;
+}
