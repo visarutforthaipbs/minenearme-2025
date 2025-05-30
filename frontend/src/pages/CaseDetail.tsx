@@ -822,9 +822,9 @@ const CaseDetail: React.FC = () => {
   const [isLegendVisible, setIsLegendVisible] = useState(false);
 
   // Add KokWatch data state for case-6
-  const [kokWatchData, setKokWatchData] = useState<KokWatchAPIResponse | null>(
-    null
-  );
+  // const [kokWatchData, setKokWatchData] = useState<KokWatchAPIResponse | null>(
+  //   null
+  // );
 
   // MongoDB comments state
   const [comments, setComments] = useState<ApiComment[]>([]);
@@ -892,7 +892,7 @@ const CaseDetail: React.FC = () => {
         if (response.ok) {
           const result: KokWatchAPIResponse = await response.json();
           if (result.status === "success") {
-            setKokWatchData(result);
+            // setKokWatchData(result);
             console.log("KokWatch data loaded for pollution chart");
           }
         }
@@ -1037,15 +1037,15 @@ const CaseDetail: React.FC = () => {
   // Track case study view when component mounts
   useEffect(() => {
     if (caseData && id) {
-      analytics.trackCaseStudyView(caseData.id, caseData.title);
+      analytics.trackCaseStudyView(String(caseData.id), caseData.title);
 
       // Track page view with case-specific data
       analytics.trackPageView({
         page_title: `${caseData.title} - เหมืองใกล้ฉัน 2025`,
         content_group1: "Case Studies",
-        content_group2: caseData.id,
+        content_group2: String(caseData.id),
         custom_parameters: {
-          case_id: caseData.id,
+          case_id: String(caseData.id),
           case_title: caseData.title,
           case_year: caseData.year,
           case_tags: caseData.tags.join(","),

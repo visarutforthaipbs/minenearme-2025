@@ -308,7 +308,6 @@ const HomePage = () => {
 
   // State for the detail sidebar - using Feature for type compatibility with DetailSidebar
   const [selectedFeature, setSelectedFeature] = useState<Feature | null>(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   // New state for focusing on a feature in the map
   const [focusOnFeature, setFocusOnFeature] = useState<SearchFeature | null>(
@@ -350,12 +349,6 @@ const HomePage = () => {
       );
   }, []);
 
-  // Close the sidebar
-  const handleCloseSidebar = () => {
-    setIsSidebarOpen(false);
-    setSelectedFeature(null);
-  };
-
   // Load data after component mounts
   useEffect(() => {
     // In a real app, this would be a fetch call to an API
@@ -389,7 +382,6 @@ const HomePage = () => {
       };
 
       setSelectedFeature(featureForSidebar);
-      setIsSidebarOpen(true);
     }
   }, [focusFeature]);
 
@@ -400,7 +392,6 @@ const HomePage = () => {
   ) => {
     // Set the feature directly for sidebar display
     setSelectedFeature(feature);
-    setIsSidebarOpen(true);
   };
 
   // Popup content for each mine point
@@ -440,7 +431,6 @@ const HomePage = () => {
   const handleGeoJSONFeatureClick = (feature: Feature) => {
     console.log("Feature clicked:", feature);
     setSelectedFeature(feature);
-    setIsSidebarOpen(true);
   };
 
   // Add this function to handle locating and finding nearby mines
@@ -847,11 +837,11 @@ const HomePage = () => {
                               ? "เหมืองไทย"
                               : "เหมืองเมียนมา"}
                             {result.properties?.Commodity &&
-                              ` • ${result.properties.Commodity}`}
+                              ` • ${String(result.properties.Commodity)}`}
                             {result.properties?.[
                               "dpimgisdb.gisdpim.vw_b_concession.ADVS_FIELD4"
                             ] &&
-                              ` • ${result.properties["dpimgisdb.gisdpim.vw_b_concession.ADVS_FIELD4"]}`}
+                              ` • ${String(result.properties["dpimgisdb.gisdpim.vw_b_concession.ADVS_FIELD4"])}`}
                           </Text>
                         </Box>
                         <Badge
@@ -901,7 +891,7 @@ const HomePage = () => {
       {/* Detail Sidebar - always visible */}
       <DetailSidebar
         selectedFeature={selectedFeature}
-        onClose={() => setIsSidebarOpen(false)}
+        onClose={() => setSelectedFeature(null)}
         nearbyMines={nearbyMines}
         isLoadingNearby={isLoadingNearby}
         onMineSelect={handleMineSelect}
