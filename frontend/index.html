@@ -3,13 +3,111 @@
 
 <head>
   <meta charset="UTF-8" />
+
+  <!-- Favicon and Icons -->
   <link rel="icon" type="image/svg+xml" href="/assets/logos/mnm-favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/logos/mnm-favicon.svg" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/logos/mnm-favicon.svg" />
   <link rel="apple-touch-icon" href="/assets/logos/mnm-favicon.svg" />
+
+  <!-- Basic Meta Tags -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Mine Near Me - แอปพลิเคชันแสดงตำแหน่งเหมืองแร่และพื้นที่เกี่ยวข้องในประเทศไทย" />
-  <title>เหมืองใกล้ฉัน - รู้ทันเหมืองใกล้บ้าน</title>
+  <meta name="description"
+    content="MineNearMe 2025 - แพลตฟอร์มติดตามผลกระทบจากเหมืองแร่ พร้อมแผนที่โต้ตอบ กรณีศึกษา และการตรวจสอบคุณภาพน้ำแบบเรียลไทม์ เพื่อความโปร่งใสและการมีส่วนร่วมของชุมชน" />
+  <meta name="keywords"
+    content="เหมืองแร่, ผลกระทบสิ่งแวดล้อม, แผนที่, ติดตามมลพิษ, คุณภาพน้ำ, mining, environmental impact, Thailand, community monitoring, water quality" />
+  <meta name="author" content="MineNearMe Team" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="Thai" />
+  <meta name="geo.region" content="TH" />
+  <meta name="geo.country" content="Thailand" />
+
+  <!-- OpenGraph Tags for Social Media -->
+  <meta property="og:site_name" content="MineNearMe 2025" />
+  <meta property="og:title" content="เหมืองใกล้ฉัน - แพลตฟอร์มติดตามผลกระทบเหมืองแร่" />
+  <meta property="og:description"
+    content="แพลตฟอร์มติดตามผลกระทบจากเหมืองแร่ พร้อมแผนที่โต้ตอบ กรณีศึกษา และการตรวจสอบคุณภาพน้ำแบบเรียลไทม์ เพื่อความโปร่งใสและการมีส่วนร่วมของชุมชน" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://minenearme2025.vercel.app/" />
+  <meta property="og:image" content="https://minenearme2025.vercel.app/assets/case-1-hero.jpg" />
+  <meta property="og:image:alt" content="MineNearMe 2025 - แผนที่แสดงตำแหน่งเหมืองแร่และผลกระทบสิ่งแวดล้อม" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="th_TH" />
+
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="เหมืองใกล้ฉัน 2025 - แพลตฟอร์มติดตามผลกระทบเหมืองแร่" />
+  <meta name="twitter:description"
+    content="แพลตฟอร์มติดตามผลกระทบจากเหมืองแร่ พร้อมแผนที่โต้ตอบ กรณีศึกษา และการตรวจสอบคุณภาพน้ำแบบเรียลไทม์" />
+  <meta name="twitter:image" content="https://minenearme2025.vercel.app/assets/case-1-hero.jpg" />
+  <meta name="twitter:image:alt" content="MineNearMe 2025 - แผนที่แสดงตำแหน่งเหมืองแร่และผลกระทบสิ่งแวดล้อม" />
+
+  <!-- Additional SEO Tags -->
+  <meta name="theme-color" content="#FF6B35" />
+  <meta name="msapplication-TileColor" content="#FF6B35" />
+  <meta name="application-name" content="MineNearMe 2025" />
+  <meta name="apple-mobile-web-app-title" content="MineNearMe 2025" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+  <!-- Structured Data for Search Engines -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "MineNearMe 2025",
+    "alternateName": "เหมืองใกล้ฉัน",
+    "description": "แพลตฟอร์มติดตามผลกระทบจากเหมืองแร่ พร้อมแผนที่โต้ตอบ กรณีศึกษา และการตรวจสอบคุณภาพน้ำแบบเรียลไทม์",
+    "url": "https://minenearme2025.vercel.app/",
+    "applicationCategory": "EnvironmentalApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "THB"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "MineNearMe Team"
+    },
+    "inLanguage": "th",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "addressCountry": "TH"
+    }
+  }
+  </script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=%VITE_GA_MEASUREMENT_ID%"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    // Use environment variable that will be replaced during build
+    const measurementId = '%VITE_GA_MEASUREMENT_ID%';
+    if (measurementId && measurementId !== '%VITE_GA_MEASUREMENT_ID%') {
+      gtag('config', measurementId, {
+        page_title: document.title,
+        page_location: window.location.href,
+        content_group1: 'Mining Impact Monitoring',
+        custom_map: {
+          'custom_parameter_1': 'content_group1'
+        }
+      });
+
+      // Track initial page view
+      gtag('event', 'page_view', {
+        page_title: document.title,
+        page_location: window.location.href
+      });
+    }
+  </script>
+
+  <title>เหมืองใกล้ฉัน- รู้ทันเหมืองใกล้บ้านคุณ</title>
+
   <style>
     html,
     body,
@@ -20,6 +118,29 @@
       padding: 0;
       overflow-x: hidden;
       font-family: 'DB Helvethaica X', sans-serif;
+    }
+
+    /* Optimize for Web Vitals */
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Improve loading performance */
+    .loading-skeleton {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+    }
+
+    @keyframes loading {
+      0% {
+        background-position: 200% 0;
+      }
+
+      100% {
+        background-position: -200% 0;
+      }
     }
   </style>
 </head>

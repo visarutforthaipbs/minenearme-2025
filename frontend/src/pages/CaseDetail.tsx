@@ -75,6 +75,8 @@ import {
 } from "../services/reportApi";
 import KokWatchMonitoringLayer from "../components/Map/KokWatchMonitoringLayer";
 import type { KokWatchAPIResponse } from "../types/kokWatch";
+import SEOHead from "../components/SEOHead";
+import { analytics } from "../services/analytics";
 
 // Add global CSS for Mekong River layer to ensure it's visible
 const mekongRiverStyles = `
@@ -1032,6 +1034,26 @@ const CaseDetail: React.FC = () => {
   // If no case found, default to first case
   const caseData = foundCase || caseStudies[0];
 
+  // Track case study view when component mounts
+  useEffect(() => {
+    if (caseData && id) {
+      analytics.trackCaseStudyView(caseData.id, caseData.title);
+
+      // Track page view with case-specific data
+      analytics.trackPageView({
+        page_title: `${caseData.title} - เหมืองใกล้ฉัน 2025`,
+        content_group1: "Case Studies",
+        content_group2: caseData.id,
+        custom_parameters: {
+          case_id: caseData.id,
+          case_title: caseData.title,
+          case_year: caseData.year,
+          case_tags: caseData.tags.join(","),
+        },
+      });
+    }
+  }, [caseData, id]);
+
   // Debug log the timeline events
   console.log("Timeline events:", caseData.timelineEvents?.length);
 
@@ -1448,6 +1470,20 @@ const CaseDetail: React.FC = () => {
 
   return (
     <Box id="case-detail-root">
+      {/* Dynamic SEO for this case study */}
+      <SEOHead
+        title={`${caseData.title} - เหมืองใกล้ฉัน 2025`}
+        description={`${caseData.summary} - กรณีศึกษาผลกระทบจากเหมืองแร่ในปี ${caseData.year} พร้อมแผนที่โต้ตอบ ข้อมูลผลกระทบ และเสียงจากชุมชน`}
+        keywords={`${caseData.tags.join(", ")}, เหมืองแร่, ผลกระทบสิ่งแวดล้อม, กรณีศึกษา, ปี ${caseData.year.toString()}`}
+        image={`https://minenearme2025.vercel.app${caseData.heroImage}`}
+        url={`https://minenearme2025.vercel.app/case/${caseData.id}`}
+        type="article"
+        publishedTime={`${caseData.year.toString()}-01-01T00:00:00Z`}
+        section="กรณีศึกษา"
+        tags={caseData.tags}
+        author="MineNearMe Team"
+      />
+
       {/* Hero Section */}
       <Box
         position="relative"
