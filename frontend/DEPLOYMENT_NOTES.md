@@ -16,13 +16,15 @@ The KokWatch monitoring points (จุดที่ได้รับการต
 Created a Vercel serverless function to act as a proxy:
 
 1. **Added `frontend/api/kokwatch.js`**: A serverless function that proxies requests to the external KokWatch API
-2. **Added `frontend/vercel.json`**: Configuration to ensure the API function is properly deployed
-3. **CORS Handling**: The serverless function includes proper CORS headers to allow frontend access
+2. **CORS Handling**: The serverless function includes proper CORS headers to allow frontend access
 
 ### Files Changed
 
 - `frontend/api/kokwatch.js` - New serverless function
-- `frontend/vercel.json` - Vercel deployment configuration
+
+### How it Works
+
+Vercel automatically detects JavaScript files in the `/api` directory and deploys them as serverless functions. No additional configuration is needed.
 
 ### Testing
 
@@ -36,6 +38,12 @@ After deployment, the KokWatch monitoring points should appear on the map in cas
 
 - **Local**: `http://localhost:5173/api/kokwatch?token=0265026b95a4a0618f9a300776c823e3`
 - **Production**: `https://your-vercel-domain.com/api/kokwatch?token=0265026b95a4a0618f9a300776c823e3`
+
+### Deployment Notes
+
+- Vercel automatically detects `/api/*.js` files as serverless functions
+- No `vercel.json` configuration is needed for simple API routes
+- The function uses Node.js runtime by default
 
 ### Future Considerations
 
