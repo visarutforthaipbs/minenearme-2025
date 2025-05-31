@@ -8,7 +8,7 @@ export const env = {
 
   // SEO Configuration
   siteUrl: import.meta.env.VITE_SITE_URL || "https://minenearme2025.vercel.app",
-  siteName: import.meta.env.VITE_SITE_NAME || "MineNearMe 2025",
+  siteName: import.meta.env.VITE_SITE_NAME || "เหมืองใกล้ฉัน",
   defaultShareImage:
     import.meta.env.VITE_DEFAULT_SHARE_IMAGE || "/assets/case-1-hero.jpg",
 
@@ -23,9 +23,9 @@ export const env = {
 
 // SEO defaults
 export const seoDefaults = {
-  title: "เหมืองใกล้ฉัน 2025 - แพลตฟอร์มติดตามผลกระทบเหมืองแร่",
+  title: "เหมืองใกล้ฉัน- รู้ทันเหมืองใกล้บ้านคุณ",
   description:
-    "แพลตฟอร์มติดตามผลกระทบจากเหมืองแร่ พร้อมแผนที่โต้ตอบ กรณีศึกษา และการตรวจสอบคุณภาพน้ำแบบเรียลไทม์ เพื่อความโปร่งใสและการมีส่วนร่วมของชุมชน",
+    "รู้ทันเหมืองใกล้บ้านคุณ แพลตฟอร์มติดตามผลกระทบจากเหมืองแร่ พร้อมแผนที่โต้ตอบ กรณีศึกษา และการตรวจสอบคุณภาพน้ำแบบเรียลไทม์ เพื่อความโปร่งใสและการมีส่วนร่วมของชุมชน",
   keywords:
     "เหมืองแร่, ผลกระทบสิ่งแวดล้อม, แผนที่, ติดตามมลพิษ, คุณภาพน้ำ, mining, environmental impact, Thailand, community monitoring, water quality",
   author: "MineNearMe Team",
