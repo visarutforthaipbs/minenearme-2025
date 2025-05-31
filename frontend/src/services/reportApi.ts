@@ -1,6 +1,9 @@
 // API service for impact reports
 const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+  import.meta.env.VITE_API_BASE_URL ||
+  (import.meta.env.MODE === "production"
+    ? "https://minenearme-backend.onrender.com/api"
+    : "http://localhost:3000/api");
 
 export interface ApiResponse<T> {
   success: boolean;
