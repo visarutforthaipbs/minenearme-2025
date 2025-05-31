@@ -19,13 +19,13 @@ interface SEOHeadProps {
 }
 
 const SEOHead: React.FC<SEOHeadProps> = ({
-  title = "เหมืองใกล้ฉัน 2025 - แพลตฟอร์มติดตามผลกระทบเหมืองแร่",
-  description = "แพลตฟอร์มติดตามผลกระทบจากเหมืองแร่ พร้อมแผนที่โต้ตอบ กรณีศึกษา และการตรวจสอบคุณภาพน้ำแบบเรียลไทม์ เพื่อความโปร่งใสและการมีส่วนร่วมของชุมชน",
+  title = "เหมืองใกล้ฉัน- รู้ทันเหมืองใกล้บ้านคุณ",
+  description = "รู้ทันเหมืองใกล้บ้านคุณ แพลตฟอร์มติดตามผลกระทบจากเหมืองแร่ พร้อมแผนที่โต้ตอบ กรณีศึกษา และการตรวจสอบคุณภาพน้ำแบบเรียลไทม์ เพื่อความโปร่งใสและการมีส่วนร่วมของชุมชน",
   keywords = "เหมืองแร่, ผลกระทบสิ่งแวดล้อม, แผนที่, ติดตามมลพิษ, คุณภาพน้ำ, mining, environmental impact, Thailand, community monitoring, water quality",
-  image = "https://minenearme2025.vercel.app/assets/case-1-hero.jpg",
+  image = "https://minenearme2025.vercel.app/assets/website-thumnail.png",
   url = "https://minenearme2025.vercel.app/",
   type = "website",
-  siteName = "MineNearMe 2025",
+  siteName = "เหมืองใกล้ฉัน",
   locale = "th_TH",
   author = "MineNearMe Team",
   publishedTime,

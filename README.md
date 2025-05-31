@@ -75,7 +75,7 @@ VITE_API_BASE_URL=http://localhost:5001
 # SEO Configuration
 VITE_SITE_URL=https://minenearme2025.vercel.app
 VITE_SITE_NAME=MineNearMe 2025
-VITE_DEFAULT_SHARE_IMAGE=/assets/case-1-hero.jpg
+VITE_DEFAULT_SHARE_IMAGE=/assets/website-thumnail.png
 
 # Features
 VITE_ENABLE_ANALYTICS=true
@@ -349,3 +349,22 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **🇹🇭 Ready to monitor mining impacts in Thailand with advanced SEO and analytics!**
 
 _Last updated: January 2025_
+
+# Environment Variables
+
+For production deployment, set these environment variables:
+
+```bash
+# API Configuration
+VITE_API_BASE_URL=https://your-backend-url.com
+
+# SEO Configuration
+VITE_SITE_URL=https://your-frontend-url.com
+VITE_SITE_NAME=เหมืองใกล้ฉัน
+VITE_DEFAULT_SHARE_IMAGE=/assets/website-thumnail.png
+
+# Analytics (Optional)
+VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+VITE_ENABLE_ANALYTICS=true
+VITE_ENABLE_SEO_TRACKING=true
+```

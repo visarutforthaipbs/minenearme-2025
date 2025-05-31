@@ -10,7 +10,7 @@ export const env = {
   siteUrl: import.meta.env.VITE_SITE_URL || "https://minenearme2025.vercel.app",
   siteName: import.meta.env.VITE_SITE_NAME || "เหมืองใกล้ฉัน",
   defaultShareImage:
-    import.meta.env.VITE_DEFAULT_SHARE_IMAGE || "/assets/case-1-hero.jpg",
+    import.meta.env.VITE_DEFAULT_SHARE_IMAGE || "/assets/website-thumnail.png",
 
   // Features
   enableAnalytics: import.meta.env.VITE_ENABLE_ANALYTICS !== "false",
