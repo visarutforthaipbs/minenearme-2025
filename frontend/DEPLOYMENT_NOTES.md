@@ -15,16 +15,34 @@ The KokWatch monitoring points (จุดที่ได้รับการต
 
 Created a Vercel serverless function to act as a proxy:
 
-1. **Added `frontend/api/kokwatch.js`**: A serverless function that proxies requests to the external KokWatch API
-2. **CORS Handling**: The serverless function includes proper CORS headers to allow frontend access
+1. **Added `api/kokwatch.js`** (at root level): A serverless function that proxies requests to the external KokWatch API
+2. **Added `vercel.json`** (at root level): Configuration for proper deployment of the monorepo structure
+3. **CORS Handling**: The serverless function includes proper CORS headers to allow frontend access
 
 ### Files Changed
 
-- `frontend/api/kokwatch.js` - New serverless function
+- `api/kokwatch.js` - New serverless function (at repository root)
+- `vercel.json` - Vercel deployment configuration (at repository root)
+
+### Deployment Structure
+
+Since this is a monorepo with both frontend and backend:
+
+```
+/
+├── vercel.json          # Deployment configuration
+├── api/
+│   └── kokwatch.js      # Serverless function
+├── frontend/            # Frontend React app
+└── backend/             # Backend API (separate deployment)
+```
 
 ### How it Works
 
-Vercel automatically detects JavaScript files in the `/api` directory and deploys them as serverless functions. No additional configuration is needed.
+- Vercel deploys from the repository root
+- The `vercel.json` configures the build to use the frontend directory
+- API routes in the root `/api` directory are automatically deployed as serverless functions
+- The frontend build output is served from `frontend/dist`
 
 ### Testing
 
@@ -41,9 +59,9 @@ After deployment, the KokWatch monitoring points should appear on the map in cas
 
 ### Deployment Notes
 
-- Vercel automatically detects `/api/*.js` files as serverless functions
-- No `vercel.json` configuration is needed for simple API routes
-- The function uses Node.js runtime by default
+- Vercel detects `/api/*.js` files as serverless functions when deploying from repository root
+- The `vercel.json` configuration is needed for monorepo setups to specify build and output directories
+- Frontend and backend are deployed separately (frontend on Vercel, backend elsewhere)
 
 ### Future Considerations
 
