@@ -200,17 +200,17 @@ const NavBar = () => {
           {/* Organization logos - only show on medium+ screens with rotation */}
           <HStack spacing={4} display={{ base: "none", md: "flex" }}>
             <Image
-              src="/assets/logos/1.png"
+              src="/assets/logos/1.png?v=1"
               alt="Organization logo 1"
               height="30px"
             />
             <Image
-              src="/assets/logos/2.png"
+              src={`/assets/logos/2-1.png?t=${Date.now()}`}
               alt="Organization logo 2"
               height="30px"
             />
             <Image
-              src="/assets/logos/3.png"
+              src="/assets/logos/3.png?v=1"
               alt="Organization logo 3"
               height="30px"
             />
@@ -315,17 +315,17 @@ const NavBar = () => {
                 </Text>
                 <VStack spacing={3}>
                   <Image
-                    src="/assets/logos/1.png"
+                    src="/assets/logos/1.png?v=1"
                     alt="Organization logo 1"
                     height="25px"
                   />
                   <Image
-                    src="/assets/logos/2.png"
+                    src={`/assets/logos/2-1.png?t=${Date.now()}`}
                     alt="Organization logo 2"
                     height="25px"
                   />
                   <Image
-                    src="/assets/logos/3.png"
+                    src="/assets/logos/3.png?v=1"
                     alt="Organization logo 3"
                     height="25px"
                   />
