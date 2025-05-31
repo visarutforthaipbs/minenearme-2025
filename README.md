@@ -75,7 +75,7 @@ VITE_API_BASE_URL=http://localhost:5001
 # SEO Configuration
 VITE_SITE_URL=https://minenearme2025.vercel.app
 VITE_SITE_NAME=MineNearMe 2025
-VITE_DEFAULT_SHARE_IMAGE=/assets/website-thumnail.png
+VITE_DEFAULT_SHARE_IMAGE=/website-thumnail.png
 
 # Features
 VITE_ENABLE_ANALYTICS=true
@@ -361,7 +361,7 @@ VITE_API_BASE_URL=https://your-backend-url.com
 # SEO Configuration
 VITE_SITE_URL=https://your-frontend-url.com
 VITE_SITE_NAME=เหมืองใกล้ฉัน
-VITE_DEFAULT_SHARE_IMAGE=/assets/website-thumnail.png
+VITE_DEFAULT_SHARE_IMAGE=/website-thumnail.png
 
 # Analytics (Optional)
 VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
