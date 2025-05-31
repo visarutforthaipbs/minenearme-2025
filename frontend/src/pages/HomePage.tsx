@@ -308,6 +308,7 @@ const HomePage = () => {
 
   // State for the detail sidebar - using Feature for type compatibility with DetailSidebar
   const [selectedFeature, setSelectedFeature] = useState<Feature | null>(null);
+  const [sidebarVisible, setSidebarVisible] = useState(false); // Control sidebar visibility on mobile
 
   // New state for focusing on a feature in the map
   const [focusOnFeature, setFocusOnFeature] = useState<SearchFeature | null>(
@@ -385,14 +386,38 @@ const HomePage = () => {
     }
   }, [focusFeature]);
 
-  // Handle feature click
-  const handleFeatureClick = (
-    feature: Feature,
-    _type: "mine" | "potential" | "risk"
-  ) => {
-    // Set the feature directly for sidebar display
+  // Handle mine selection from the list
+  const handleMineSelect = useCallback((feature: Feature) => {
     setSelectedFeature(feature);
-  };
+    setSidebarVisible(true); // Keep sidebar visible when selecting from list
+
+    // Determine if this is a Thai or Myanmar mine based on properties
+    const isMyanmarMine = !!feature.properties?.o_nmME;
+
+    // Convert the GeoJSON Feature to SearchFeature format for the map controller
+    const searchFeature: SearchFeature = {
+      id:
+        feature.properties?.[
+          "dpimgisdb.gisdpim.vw_b_concession.REQ_CONCESSION_ID"
+        ] ||
+        feature.properties?.ROW_ID ||
+        feature.properties?.o_id ||
+        Math.random(),
+      name:
+        feature.properties?.["dpimgisdb.gisdpim.vw_b_concession.ADVS_FIELD1"] ||
+        feature.properties?.o_nmME ||
+        "ไม่ระบุชื่อ",
+      type: isMyanmarMine ? "myanmar" : "mine",
+      properties: feature.properties || {},
+      geometry: feature.geometry as unknown as {
+        type: string;
+        coordinates: number[] | number[][] | number[][][];
+      },
+    };
+
+    // Set the feature to focus on in the map
+    setFocusOnFeature(searchFeature);
+  }, []);
 
   // Popup content for each mine point
   const onEachThMine = (feature: Feature, layer: L.Layer) => {
@@ -400,7 +425,7 @@ const HomePage = () => {
     layer.bindPopup(`<strong>${name}</strong>`);
     layer.on({
       click: () => {
-        handleFeatureClick(feature, "mine");
+        handleMineSelect(feature);
       },
     });
   };
@@ -411,7 +436,7 @@ const HomePage = () => {
     layer.bindPopup(`<strong>${name}</strong>`);
     layer.on({
       click: () => {
-        handleFeatureClick(feature, "potential");
+        handleMineSelect(feature);
       },
     });
   };
@@ -422,19 +447,20 @@ const HomePage = () => {
     layer.bindPopup(`<strong>${name}</strong>`);
     layer.on({
       click: () => {
-        handleFeatureClick(feature, "risk");
+        handleMineSelect(feature);
       },
     });
   };
 
   // Handle feature click from GeoJSON layer
   const handleGeoJSONFeatureClick = (feature: Feature) => {
-    console.log("Feature clicked:", feature);
     setSelectedFeature(feature);
+    setSidebarVisible(true); // Show sidebar when feature is clicked
   };
 
-  // Add this function to handle locating and finding nearby mines
+  // Handler for location-based search
   const handleLocateAndFindNearby = useCallback(() => {
+    setSidebarVisible(true); // Show sidebar when starting search
     setIsLoadingNearby(true);
     setSelectedFeature(null);
 
@@ -567,39 +593,9 @@ const HomePage = () => {
   }, [toast, thMines, mmMines]);
 
   // Add functions to handle list-detail interaction
-  const handleMineSelect = useCallback((feature: Feature) => {
-    setSelectedFeature(feature);
-
-    // Determine if this is a Thai or Myanmar mine based on properties
-    const isMyanmarMine = !!feature.properties?.o_nmME;
-
-    // Convert the GeoJSON Feature to SearchFeature format for the map controller
-    const searchFeature: SearchFeature = {
-      id:
-        feature.properties?.[
-          "dpimgisdb.gisdpim.vw_b_concession.REQ_CONCESSION_ID"
-        ] ||
-        feature.properties?.ROW_ID ||
-        feature.properties?.o_id ||
-        Math.random(),
-      name:
-        feature.properties?.["dpimgisdb.gisdpim.vw_b_concession.ADVS_FIELD1"] ||
-        feature.properties?.o_nmME ||
-        "ไม่ระบุชื่อ",
-      type: isMyanmarMine ? "myanmar" : "mine",
-      properties: feature.properties || {},
-      geometry: feature.geometry as unknown as {
-        type: string;
-        coordinates: number[] | number[][] | number[][][];
-      },
-    };
-
-    // Set the feature to focus on in the map
-    setFocusOnFeature(searchFeature);
-  }, []);
-
   const handleBackToList = useCallback(() => {
     setSelectedFeature(null);
+    setSidebarVisible(true); // Keep sidebar visible to show the list
   }, []);
 
   // Search logic that works with our GeoJSON data schema
@@ -709,6 +705,13 @@ const HomePage = () => {
     setSearchQuery("");
     setShowSearchResults(false);
   }, []);
+
+  // Handler to close sidebar
+  const handleCloseSidebar = () => {
+    setSelectedFeature(null);
+    setSidebarVisible(false); // Hide sidebar when closed
+    setNearbyMines([]); // Clear nearby mines
+  };
 
   return (
     <Box position="relative" h="calc(100vh - 72px)">
@@ -891,11 +894,12 @@ const HomePage = () => {
       {/* Detail Sidebar - always visible */}
       <DetailSidebar
         selectedFeature={selectedFeature}
-        onClose={() => setSelectedFeature(null)}
+        onClose={handleCloseSidebar}
         nearbyMines={nearbyMines}
         isLoadingNearby={isLoadingNearby}
         onMineSelect={handleMineSelect}
         onBackToList={handleBackToList}
+        isVisible={sidebarVisible}
       />
     </Box>
   );
