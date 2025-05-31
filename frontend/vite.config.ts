@@ -1,24 +1,23 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import path from "path";
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
-      "@components": path.resolve(__dirname, "./src/components"),
-      "@pages": path.resolve(__dirname, "./src/pages"),
-      "@assets": path.resolve(__dirname, "./src/assets"),
-      "@utils": path.resolve(__dirname, "./src/utils"),
-      "@hooks": path.resolve(__dirname, "./src/hooks"),
-      "@theme": path.resolve(__dirname, "./src/theme"),
-      "@i18n": path.resolve(__dirname, "./src/i18n"),
-      "@context": path.resolve(__dirname, "./src/context"),
-      "@services": path.resolve(__dirname, "./src/services"),
-      "@types": path.resolve(__dirname, "./src/types"),
-      "@mockData": path.resolve(__dirname, "./src/mockData"),
+      "@": "/src",
+      "@components": "/src/components",
+      "@pages": "/src/pages",
+      "@assets": "/src/assets",
+      "@utils": "/src/utils",
+      "@hooks": "/src/hooks",
+      "@theme": "/src/theme",
+      "@i18n": "/src/i18n",
+      "@context": "/src/context",
+      "@services": "/src/services",
+      "@types": "/src/types",
+      "@mockData": "/src/mockData",
     },
   },
   // Add specific handling for GeoJSON files
