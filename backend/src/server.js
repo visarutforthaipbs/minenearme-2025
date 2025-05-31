@@ -38,9 +38,13 @@ app.use(
     origin: [
       "http://localhost:5173",
       "http://localhost:5174",
+      "https://minenearme-2025.vercel.app",
+      "https://minenearme2025.vercel.app", // In case you change the URL
       process.env.CORS_ORIGIN || "http://localhost:5173",
     ].filter(Boolean),
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   })
 );
 
