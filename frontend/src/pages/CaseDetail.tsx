@@ -62,7 +62,11 @@ import {
   FaInfoCircle,
   FaHome,
   FaChartLine,
+  FaFacebookF,
+  FaLine,
+  FaCopy,
 } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import TimelineCarousel from "../components/TimelineCarousel";
 import type { Feature, Polygon } from "geojson";
 import {
@@ -1088,6 +1092,13 @@ const CaseDetail: React.FC = () => {
     onClose: onImpactInfoClose,
   } = useDisclosure();
 
+  // Modal for social sharing
+  const {
+    isOpen: isShareOpen,
+    onOpen: onShareOpen,
+    onClose: onShareClose,
+  } = useDisclosure();
+
   // Background colors
   const sectionBgColor = useColorModeValue("gray.50", "gray.900");
   const cardBgColor = useColorModeValue("white", "gray.800");
@@ -1354,39 +1365,78 @@ const CaseDetail: React.FC = () => {
     }, 1000);
   };
 
-  // Add share handler
-  const handleShare = async () => {
+  // Add social share handlers
+  const handleSocialShare = (platform: string) => {
     const shareData = {
       title: caseData.title,
       text: `${caseData.summary} - ปี ${caseData.year}`,
       url: window.location.href,
     };
 
+    const encodedUrl = encodeURIComponent(shareData.url);
+    const encodedText = encodeURIComponent(shareData.text);
+    const encodedTitle = encodeURIComponent(shareData.title);
+
+    let shareUrl = "";
+
+    switch (platform) {
+      case "facebook":
+        // Use the simple Facebook sharer that works without App ID
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+        break;
+      case "twitter":
+        shareUrl = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}`;
+        break;
+      case "line":
+        shareUrl = `https://social-plugins.line.me/lineit/share?url=${encodedUrl}&text=${encodedTitle}`;
+        break;
+      case "copy":
+        handleCopyLink();
+        return;
+      case "native":
+        handleNativeShare();
+        return;
+      default:
+        return;
+    }
+
+    if (shareUrl) {
+      // For Facebook, use a larger popup window
+      const windowFeatures =
+        platform === "facebook"
+          ? "width=800,height=600,scrollbars=yes,resizable=yes"
+          : "width=600,height=400";
+
+      window.open(shareUrl, "_blank", windowFeatures);
+      onShareClose();
+
+      toast({
+        title: "เปิดหน้าต่างแชร์แล้ว",
+        description:
+          platform === "facebook"
+            ? "กรุณารอสักครู่ให้ Facebook โหลดข้อมูล จากนั้นดำเนินการแชร์"
+            : "กรุณาดำเนินการแชร์ในหน้าต่างที่เปิดขึ้น",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+    }
+  };
+
+  const handleCopyLink = async () => {
     try {
-      // Check if Web Share API is supported
-      if (navigator.share) {
-        await navigator.share(shareData);
-        toast({
-          title: "แชร์สำเร็จ",
-          description: "ขอบคุณที่แชร์กรณีศึกษานี้",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-        });
-      } else {
-        // Fallback: copy to clipboard
-        await navigator.clipboard.writeText(window.location.href);
-        toast({
-          title: "คัดลอกลิงก์แล้ว",
-          description: "ลิงก์ถูกคัดลอกไปยังคลิปบอร์ดแล้ว",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-        });
-      }
+      await navigator.clipboard.writeText(window.location.href);
+      onShareClose();
+      toast({
+        title: "คัดลอกลิงก์แล้ว",
+        description: "ลิงก์ถูกคัดลอกไปยังคลิปบอร์ดแล้ว",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
     } catch (error) {
-      console.error("Error sharing:", error);
-      // Final fallback: show the URL in a prompt
+      console.error("Error copying to clipboard:", error);
+      // Fallback: show the URL in a prompt
       const url = window.location.href;
       const userCopied = window.prompt("คัดลอกลิงก์นี้เพื่อแชร์:", url);
       if (userCopied !== null) {
@@ -1398,6 +1448,34 @@ const CaseDetail: React.FC = () => {
           isClosable: true,
         });
       }
+    }
+  };
+
+  const handleNativeShare = async () => {
+    const shareData = {
+      title: caseData.title,
+      text: `${caseData.summary} - ปี ${caseData.year}`,
+      url: window.location.href,
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+        onShareClose();
+        toast({
+          title: "แชร์สำเร็จ",
+          description: "ขอบคุณที่แชร์กรณีศึกษานี้",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      } else {
+        // If native share is not available, fallback to copy
+        handleCopyLink();
+      }
+    } catch (error) {
+      console.error("Error sharing:", error);
+      handleCopyLink();
     }
   };
 
@@ -1538,7 +1616,7 @@ const CaseDetail: React.FC = () => {
                 leftIcon={<FaShare />}
                 colorScheme="orange"
                 variant="outline"
-                onClick={handleShare}
+                onClick={onShareOpen}
                 bg="rgba(255,255,255,0.1)"
                 borderColor="orange.300"
                 color="white"
@@ -2693,6 +2771,89 @@ const CaseDetail: React.FC = () => {
             </ModalBody>
             <ModalFooter>
               <Button colorScheme="blue" onClick={onImpactInfoClose}>
+                ปิด
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+
+        {/* Social Share Modal */}
+        <Modal isOpen={isShareOpen} onClose={onShareClose} size="md">
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>แชร์กรณีศึกษานี้</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <VStack spacing={4}>
+                <Text textAlign="center" color="gray.600" mb={2}>
+                  เลือกแพลตฟอร์มที่ต้องการแชร์
+                </Text>
+
+                <SimpleGrid columns={3} spacing={4} w="100%">
+                  <Button
+                    leftIcon={<FaFacebookF />}
+                    colorScheme="facebook"
+                    onClick={() => handleSocialShare("facebook")}
+                    size="md"
+                    justifyContent="flex-start"
+                  >
+                    Facebook
+                  </Button>
+
+                  <Button
+                    leftIcon={<FaXTwitter />}
+                    colorScheme="gray"
+                    onClick={() => handleSocialShare("twitter")}
+                    size="md"
+                    justifyContent="flex-start"
+                    color="white"
+                    _hover={{ bg: "gray.800" }}
+                  >
+                    X
+                  </Button>
+
+                  <Button
+                    leftIcon={<FaLine />}
+                    colorScheme="green"
+                    onClick={() => handleSocialShare("line")}
+                    size="md"
+                    justifyContent="flex-start"
+                  >
+                    LINE
+                  </Button>
+                </SimpleGrid>
+
+                <Divider />
+
+                <VStack spacing={3} w="100%">
+                  {navigator.share && (
+                    <Button
+                      leftIcon={<FaShare />}
+                      variant="outline"
+                      onClick={() => handleSocialShare("native")}
+                      size="lg"
+                      w="100%"
+                      justifyContent="flex-start"
+                    >
+                      แชร์ด้วยแอปอื่นๆ
+                    </Button>
+                  )}
+
+                  <Button
+                    leftIcon={<FaCopy />}
+                    variant="outline"
+                    onClick={() => handleSocialShare("copy")}
+                    size="lg"
+                    w="100%"
+                    justifyContent="flex-start"
+                  >
+                    คัดลอกลิงก์
+                  </Button>
+                </VStack>
+              </VStack>
+            </ModalBody>
+            <ModalFooter>
+              <Button variant="ghost" onClick={onShareClose}>
                 ปิด
               </Button>
             </ModalFooter>

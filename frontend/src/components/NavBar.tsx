@@ -231,26 +231,28 @@ const NavBar = () => {
         </Flex>
       </Flex>
 
-      {/* Secondary navbar - if needed */}
-      <Flex
-        bg="orange.100"
-        px={4}
-        py={2}
-        display={{ base: "none", md: "flex" }}
-        borderBottom="1px"
-        borderColor={borderColor}
-      >
-        <HStack spacing={4}>
-          <Text fontSize="sm" color="gray.700">
-            ข้อมูลอัพเดทล่าสุด: มกราคม 2566
-          </Text>
-          <Divider orientation="vertical" height="20px" color="gray.500" />
-          <Text fontSize="sm" color="gray.700">
-            แหล่งข้อมูล: กรมอุตสาหกรรมพื้นฐานและการเหมืองแร่ และ Myanmar Centre
-            for Responsible Business (MCRB)
-          </Text>
-        </HStack>
-      </Flex>
+      {/* Secondary navbar - only show on homepage and medium+ screens */}
+      {location.pathname === "/" && (
+        <Flex
+          bg="orange.100"
+          px={4}
+          py={2}
+          display={{ base: "none", md: "flex" }}
+          borderBottom="1px"
+          borderColor={borderColor}
+        >
+          <HStack spacing={4}>
+            <Text fontSize="sm" color="gray.700">
+              ข้อมูลอัพเดทล่าสุด: มิถุนายน 2568, 2018
+            </Text>
+            <Divider orientation="vertical" height="20px" color="gray.500" />
+            <Text fontSize="sm" color="gray.700">
+              แหล่งข้อมูล: กรมอุตสาหกรรมพื้นฐานและการเหมืองแร่ และ Myanmar
+              Centre for Responsible Business (MCRB)
+            </Text>
+          </HStack>
+        </Flex>
+      )}
 
       {/* Mobile Menu Drawer */}
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
