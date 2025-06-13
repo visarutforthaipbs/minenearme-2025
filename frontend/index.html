@@ -80,30 +80,13 @@
   </script>
 
   <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=%VITE_GA_MEASUREMENT_ID%"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YCK7HQQW61"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
-    // Use environment variable that will be replaced during build
-    const measurementId = '%VITE_GA_MEASUREMENT_ID%';
-    if (measurementId && measurementId !== '%VITE_GA_MEASUREMENT_ID%') {
-      gtag('config', measurementId, {
-        page_title: document.title,
-        page_location: window.location.href,
-        content_group1: 'Mining Impact Monitoring',
-        custom_map: {
-          'custom_parameter_1': 'content_group1'
-        }
-      });
-
-      // Track initial page view
-      gtag('event', 'page_view', {
-        page_title: document.title,
-        page_location: window.location.href
-      });
-    }
+    gtag('config', 'G-YCK7HQQW61');
   </script>
 
   <title>เหมืองใกล้ฉัน- รู้ทันเหมืองใกล้บ้านคุณ</title>
