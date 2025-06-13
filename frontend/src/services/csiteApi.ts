@@ -65,9 +65,7 @@ export interface CSiteTopicFilter {
 }
 
 const API_BASE_URL =
-  process.env.NODE_ENV === "production"
-    ? "https://your-backend-domain.com/api"
-    : "http://localhost:3000/api";
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api";
 
 /**
  * Get nearby citizen reports for a specific mine
