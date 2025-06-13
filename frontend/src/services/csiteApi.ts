@@ -65,7 +65,8 @@ export interface CSiteTopicFilter {
 }
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api";
+  import.meta.env.VITE_API_BASE_URL ||
+  "https://minenearme-backend.onrender.com/api";
 
 /**
  * Get nearby citizen reports for a specific mine
