@@ -21,6 +21,7 @@ import {
   FaArrowLeft,
   FaExclamationTriangle,
 } from "react-icons/fa";
+import CitizenReports from "./CitizenReports";
 import type { Feature } from "geojson";
 import { useParams } from "react-router-dom";
 
@@ -106,8 +107,9 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({
 
         // name: Thai="ADVS_FIELD1", Myanmar="o_nmME"
         name:
-          p["dpimgisdb.gisdpim.vw_b_concession.ADVS_FIELD1"] ||
-          p.o_nmME ||
+          p["dpimgisdb.gisdpim.vw_b_concession.ADVS_FIELD2"] ||
+          p.LicHolder ||
+          p.operator ||
           "ไม่ระบุชื่อ",
 
         // permitNumber: Thai="PERMIT_ID", Myanmar="PermitNo"
@@ -300,6 +302,12 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({
                 ID: {sidebarData?.id}
               </Text>
             </VStack>
+
+            <Divider my={4} />
+            {/* Citizen Reports Section */}
+            <Box px={4}>
+              <CitizenReports mineFeature={selectedFeature} isVisible={true} />
+            </Box>
 
             {/* Show villages at risk for Case 6 */}
             {caseId === "case-6" && (
