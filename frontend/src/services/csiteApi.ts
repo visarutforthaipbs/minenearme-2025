@@ -68,6 +68,9 @@ const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ||
   "https://minenearme-backend.onrender.com/api";
 
+const ENABLE_CITIZEN_REPORTS =
+  import.meta.env.VITE_ENABLE_CITIZEN_REPORTS !== "false";
+
 /**
  * Get nearby citizen reports for a specific mine
  */
@@ -191,7 +194,19 @@ export const fetchNearbyCitizenReports = async (location: {
   lat: number;
   lng: number;
 }): Promise<CitizenReport[]> => {
+  // Check if citizen reports are disabled
+  if (!ENABLE_CITIZEN_REPORTS) {
+    console.log("📋 Citizen reports disabled via environment variable");
+    return [];
+  }
+
   try {
+    console.log(
+      "🌐 Fetching citizen reports from:",
+      `${API_BASE_URL}/citizen-reports/nearby`
+    );
+    console.log("📍 Location:", location);
+
     const response = await fetch(`${API_BASE_URL}/citizen-reports/nearby`, {
       method: "POST",
       headers: {
@@ -201,13 +216,17 @@ export const fetchNearbyCitizenReports = async (location: {
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch citizen reports: ${response.status}`);
+      console.warn(
+        `API responded with status ${response.status}, returning empty array`
+      );
+      return []; // Return empty array instead of throwing
     }
 
     const data = await response.json();
-    return data.data || data; // Handle both response formats
+    console.log("✅ API Response:", data);
+    return data.data || data || []; // Handle different response formats
   } catch (error) {
     console.error("Error fetching nearby citizen reports:", error);
-    throw error;
+    return []; // Return empty array instead of throwing
   }
 };

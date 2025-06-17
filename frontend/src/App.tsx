@@ -17,8 +17,9 @@ import SEOHead from "@/components/SEOHead";
 
 function App() {
   useEffect(() => {
-    // Initialize Google Analytics with environment variable
-    const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
+    // Initialize Google Analytics with environment variable or fallback
+    const measurementId =
+      import.meta.env.VITE_GA_MEASUREMENT_ID || "G-YCK7HQQW61";
     if (measurementId) {
       analytics.initialize(measurementId);
 

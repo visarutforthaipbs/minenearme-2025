@@ -109,16 +109,21 @@ const CitizenReports: React.FC<CitizenReportsProps> = ({
       // Only update state if this is still the latest request
       if (currentRequestId === requestIdRef.current) {
         console.log("📋 Received citizen reports:", reportsData);
-        setReports(reportsData);
+        setReports(reportsData || []); // Ensure we always set an array
 
         // Cache the results
-        cache.set(cacheKey, { data: reportsData, timestamp: Date.now() });
+        cache.set(cacheKey, { data: reportsData || [], timestamp: Date.now() });
+
+        // Clear any previous errors
+        setError(null);
       }
     } catch (err) {
       // Only update error state if this is still the latest request
       if (currentRequestId === requestIdRef.current) {
         console.error("❌ Error fetching citizen reports:", err);
-        setError(err instanceof Error ? err.message : "Failed to load reports");
+        // Set empty reports on error to prevent stale data
+        setReports([]);
+        setError("ไม่สามารถโหลดรายงานจากประชาชนได้ กรุณาลองใหม่อีกครั้ง");
       }
     } finally {
       // Only update loading state if this is still the latest request
