@@ -28,16 +28,16 @@ const About = () => (
       {/* Header Section */}
       <VStack spacing={6} align="center" mb={10}>
         <Image
-          src="/assets/logos/logo-navbar.svg"
+          src="/assets/logos/orange-main.svg"
           alt="MineNearMe Logo"
-          height="80px"
+          height="150px"
         />
         <Heading size="2xl" textAlign="center" color="gray.800">
           เหมืองใกล้ฉัน (MineNearMe)
         </Heading>
         <Badge
           colorScheme="orange"
-          fontSize="lg"
+          fontSize="sm"
           px={4}
           py={2}
           borderRadius="full"
@@ -45,8 +45,8 @@ const About = () => (
           เวอร์ชัน Beta
         </Badge>
         <Text fontSize="xl" textAlign="center" color="gray.600" maxW="4xl">
-          แพลตฟอร์มติดตามผลกระทบจากเหมืองแร่ พร้อมแผนที่โต้ตอบ กรณีศึกษา
-          และการตรวจสอบคุณภาพน้ำแบบเรียลไทม์
+          แพลตฟอร์มติดตามผลกระทบจากเหมืองแร่ใกล้บ้านคุณ กรณีศึกษา
+          และเข้าใจผลกระทบจากเหมืองแร่อย่างง่าย
         </Text>
       </VStack>
 
@@ -92,46 +92,14 @@ const About = () => (
                 ⚙️ คุณสมบัติหลัก
               </Heading>
               <VStack align="start" spacing={2}>
-                <Text>🗺️ แผนที่โต้ตอบแสดงที่ตั้งเหมืองและชุมชน</Text>
+                <Text>🗺️ แผนที่แสดงที่ตั้งของเหมืองในปัจจุบัน</Text>
                 <Text>📊 กรณีศึกษาจากชุมชนที่ได้รับผลกระทบ</Text>
-                <Text>💧 ระบบตรวจสอบคุณภาพน้ำแบบเรียลไทม์</Text>
                 <Text>📝 ระบบรายงานปัญหาจากชุมชน</Text>
-                <Text>📈 การวิเคราะห์ข้อมูลเชิงลึก</Text>
-                <Text>🔄 การแบ่งปันข้อมูลเพื่อความโปร่งใส</Text>
               </VStack>
             </VStack>
           </CardBody>
         </Card>
       </SimpleGrid>
-
-      {/* Technical Stack */}
-      <Card mb={10}>
-        <CardBody>
-          <Heading size="lg" mb={6} color="brand.primary">
-            🛠️ เทคโนโลยีที่ใช้พัฒนา
-          </Heading>
-          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>
-            <VStack>
-              <Text fontWeight="bold">Frontend</Text>
-              <Text fontSize="sm" textAlign="center">
-                React + TypeScript, Chakra UI, React Leaflet, Vite
-              </Text>
-            </VStack>
-            <VStack>
-              <Text fontWeight="bold">Backend</Text>
-              <Text fontSize="sm" textAlign="center">
-                Node.js + Express, MongoDB, Cloudinary
-              </Text>
-            </VStack>
-            <VStack>
-              <Text fontWeight="bold">Analytics & SEO</Text>
-              <Text fontSize="sm" textAlign="center">
-                Google Analytics 4, Dynamic SEO, Social Media Optimization
-              </Text>
-            </VStack>
-          </SimpleGrid>
-        </CardBody>
-      </Card>
 
       {/* Partners */}
       <Card mb={10}>
@@ -144,26 +112,26 @@ const About = () => (
           </Text>
           <HStack spacing={6} flexWrap="wrap" justify="center">
             <Image
-              src="/assets/logos/1.png"
+              src="/assets/logos/about-icon/1-orange-partner-logo.svg"
               alt="Partner Logo 1"
               height="50px"
               objectFit="contain"
             />
             <Image
-              src="/assets/logos/2-1.png"
+              src="/assets/logos/about-icon/4-orange-partner-logo.svg"
               alt="Partner Logo 2"
               height="50px"
               objectFit="contain"
             />
             <Image
-              src="/assets/logos/3.png"
+              src="/assets/logos/about-icon/Asset 87orange-partner-logo.svg"
               alt="Partner Logo 3"
               height="50px"
               objectFit="contain"
             />
             <Image
-              src="/assets/logos/cja-logo.svg"
-              alt="CJA Logo"
+              src="/assets/logos/about-icon/Asset 88orange-partner-logo.svg"
+              alt="Partner Logo 4"
               height="50px"
               objectFit="contain"
             />
