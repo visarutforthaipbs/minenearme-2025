@@ -20,6 +20,7 @@ import {
 } from "@chakra-ui/react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import { FaEnvelope } from "react-icons/fa";
 
 // Helper component for nav links with custom icons
 interface NavLinkProps {
@@ -270,8 +271,28 @@ const NavBar = () => {
           </Box>
         </HStack>
 
-        {/* Right side - Organization logos (desktop) and hamburger (mobile) */}
-        <Flex align="center">
+        {/* Right side - Contact icon, Organization logos (desktop) and hamburger (mobile) */}
+        <Flex align="center" gap={4}>
+          {/* Contact Us icon - only show on medium+ screens */}
+          <IconButton
+            as={RouterLink}
+            to="/about"
+            display={{ base: "none", md: "flex" }}
+            variant="ghost"
+            color="white"
+            aria-label="Contact Us"
+            icon={<FaEnvelope />}
+            size="md"
+            _hover={{
+              bg: "whiteAlpha.200",
+              transform: "scale(1.1)",
+            }}
+            _active={{
+              bg: "whiteAlpha.300",
+            }}
+            transition="all 0.2s"
+          />
+
           {/* Organization logos - only show on medium+ screens with rotation */}
           <Box
             display={{ base: "none", md: "flex" }}
@@ -360,6 +381,14 @@ const NavBar = () => {
                 onClick={onClose}
               >
                 เรื่องจริงจากชุมชน
+              </MobileNavLink>
+
+              <MobileNavLink
+                to="/about"
+                isActive={isActive("/about")}
+                onClick={onClose}
+              >
+                ติดต่อเรา
               </MobileNavLink>
 
               <Link
