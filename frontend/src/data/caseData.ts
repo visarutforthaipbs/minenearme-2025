@@ -79,7 +79,7 @@ export const caseStudies: CaseStudy[] = [
       "กรณีศึกษาผลกระทบด้านสิ่งแวดล้อมและสุขภาพจากการทำเหมืองทองคำในพื้นที่อำเภอวังสะพุง จังหวัดเลย",
     tags: ["ทองคำ", "ภาคอีสาน", "มลพิษทางน้ำ", "โลหะหนัก", "สารพิษตกค้าง"],
     image: "/assets/case1.jpg",
-    heroImage: "/assets/case-wangsapong-hero.jpg",
+    heroImage: "/assets/case-wangsapong-hero-1.jpg",
     year: 2020,
     impacts: [
       "น้ำปนเปื้อนไซยาไนด์และสารหนู",
@@ -280,8 +280,8 @@ export const caseStudies: CaseStudy[] = [
     summary:
       "การเคลื่อนไหวของชุมชนเพื่อปกป้องพื้นที่ป่าต้นน้ำจากเหมืองถ่านหินในพื้นที่อำเภอแม่แจ่ม",
     tags: ["ถ่านหิน", "ภาคเหนือ", "การจัดการป่า", "ชนเผ่า"],
-    heroImage: "/assets/case-omkoi-hero.jpg",
-    image: "/assets/case-omkoi-hero.jpg",
+    heroImage: "/assets/case-omkoi-hero-1.jpg",
+    image: "/assets/case-omkoi-hero-1.jpg",
     year: 2019,
     impacts: [
       "การทำลายพื้นที่ป่าต้นน้ำ",
@@ -309,7 +309,7 @@ export const caseStudies: CaseStudy[] = [
       "บทเรียนจากการเปิดเหมืองหินปูนในพื้นที่จังหวัดสระบุรีและผลกระทบต่อชุมชนโดยรอบ",
     tags: ["หินปูน", "ภาคกลาง", "ฝุ่นละออง", "แรงสั่นสะเทือน"],
     image: "/assets/case3.jpg",
-    heroImage: "/assets/case-saraburi-hero.jpg",
+    heroImage: "/assets/case-saraburi-hero-1.jpg",
     year: 2021,
     impacts: [
       "ฝุ่นละอองจากการระเบิดหิน",
@@ -336,8 +336,8 @@ export const caseStudies: CaseStudy[] = [
     summary:
       "ความขัดแย้งในการพัฒนาโครงการเหมืองแร่โปแตชขนาดใหญ่ในภาคตะวันออกเฉียงเหนือ",
     tags: ["โปแตช", "ภาคอีสาน", "น้ำเค็ม", "ทรุดตัว"],
-    image: "/assets/case-potash-hero.jpg",
-    heroImage: "/assets/case-potast-hero.jpg",
+    image: "/assets/case-potash-hero-1.jpg",
+    heroImage: "/assets/case-potast-hero-1.jpg",
     year: 2022,
     impacts: [
       "ความเสี่ยงต่อการทรุดตัวของพื้นที่",
@@ -392,7 +392,7 @@ export const caseStudies: CaseStudy[] = [
       "ผลกระทบด้านสิ่งแวดล้อมและสุขภาพจากการทำเหมืองในภาคตะวันออกของรัฐฉาน ประเทศเมียนมา",
     tags: ["ทองคำ", "แร่หายาก", "มลพิษทางน้ำ", "สารหนู", "เหมืองข้ามแดน"],
     image: "/assets/case1.jpg",
-    heroImage: "/assets/case-1-hero.gif",
+    heroImage: "/assets/case-1-hero-1.jpg",
     year: 2025,
     impacts: [
       "แม่น้ำปนเปื้อนสารหนู",

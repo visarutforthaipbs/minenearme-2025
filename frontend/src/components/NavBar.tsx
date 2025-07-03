@@ -21,13 +21,14 @@ import {
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import { HamburgerIcon } from "@chakra-ui/icons";
 
-// Helper component for nav links
+// Helper component for nav links with custom icons
 interface NavLinkProps {
   children: React.ReactNode;
   to: string;
   isActive: boolean;
   activeColor: string;
   inactiveColor: string;
+  showIcon?: boolean;
 }
 
 const NavLink = ({
@@ -36,24 +37,47 @@ const NavLink = ({
   isActive,
   activeColor,
   inactiveColor,
+  showIcon = false,
 }: NavLinkProps) => {
   return (
     <Link
       as={RouterLink}
       to={to}
-      px={2}
-      py={1}
+      px={showIcon ? 6 : 3}
+      py={showIcon ? 3 : 2}
       fontWeight={isActive ? "bold" : "medium"}
+      fontSize="md"
       color={isActive ? activeColor : inactiveColor}
-      borderBottom={isActive ? "2px solid" : "none"}
+      bg={isActive && showIcon ? "rgba(0,0,0,0.8)" : "transparent"}
+      borderRadius={showIcon ? "full" : "none"}
+      borderBottom={!showIcon && isActive ? "2px solid" : "none"}
       borderColor="white"
+      display="flex"
+      alignItems="center"
+      gap={2}
+      transition="all 0.3s ease"
       _hover={{
         textDecoration: "none",
-        color: "white",
-        borderBottom: "2px solid",
+        color: showIcon ? "white" : "white",
+        bg: showIcon ? "rgba(0,0,0,0.8)" : "transparent",
+        borderBottom: !showIcon ? "2px solid" : "none",
         borderColor: "white",
       }}
     >
+      {showIcon && (
+        <Box width="19px" height="22px" flexShrink={0}>
+          <Image
+            src={
+              isActive
+                ? "/assets/icon/nav_search_icon_active.svg"
+                : "/assets/icon/nav_search_icon_inactive.svg"
+            }
+            alt="Search icon"
+            width="19px"
+            height="22px"
+          />
+        </Box>
+      )}
       {children}
     </Link>
   );
@@ -65,6 +89,7 @@ interface MobileNavLinkProps {
   to: string;
   isActive: boolean;
   onClick: () => void;
+  showIcon?: boolean;
 }
 
 const MobileNavLink = ({
@@ -72,23 +97,42 @@ const MobileNavLink = ({
   to,
   isActive,
   onClick,
+  showIcon = false,
 }: MobileNavLinkProps) => {
   return (
     <Link
       as={RouterLink}
       to={to}
       onClick={onClick}
-      fontSize="lg"
-      fontWeight={isActive ? "bold" : "medium"}
+      fontSize="xl"
+      fontWeight="bold"
       color={isActive ? "white" : "whiteAlpha.900"}
       borderLeft={isActive ? "3px solid" : "none"}
       borderColor="white"
       pl={isActive ? 3 : 0}
+      mb={2}
+      display="flex"
+      alignItems="center"
+      gap={2}
       _hover={{
         textDecoration: "none",
         color: "white",
       }}
     >
+      {showIcon && (
+        <Box width="19px" height="22px" flexShrink={0}>
+          <Image
+            src={
+              isActive
+                ? "/assets/icon/nav_search_icon_active.svg"
+                : "/assets/icon/nav_search_icon_inactive.svg"
+            }
+            alt="Search icon"
+            width="19px"
+            height="22px"
+          />
+        </Box>
+      )}
       {children}
     </Link>
   );
@@ -140,8 +184,8 @@ const NavBar = () => {
         className="mining-pattern-subtle"
         bg={bgColor}
         color="heading"
-        h="60px"
-        px={4}
+        h="80px"
+        px={6}
         borderBottom="1px"
         borderColor={borderColor}
         align="center"
@@ -149,18 +193,19 @@ const NavBar = () => {
       >
         {/* Logo and Site Title */}
         <Flex align="center">
-          <Image src="/assets/logos/logo-navbar.svg" alt="Logo" height="40px" />
+          <Image src="/assets/logos/logo-navbar.svg" alt="Logo" height="50px" />
         </Flex>
 
         {/* Desktop Navigation Links - only show on medium+ screens */}
-        <HStack spacing={8} display={{ base: "none", md: "flex" }}>
+        <HStack spacing={10} display={{ base: "none", md: "flex" }}>
           <NavLink
             to="/"
             isActive={isActive("/")}
             activeColor={activeLinkColor}
             inactiveColor={inactiveLinkColor}
+            showIcon={true}
           >
-            🔍 ค้นหาเหมืองใกล้ฉัน
+            ค้นหาเหมืองใกล้ฉัน
           </NavLink>
 
           <NavLink
@@ -200,7 +245,7 @@ const NavBar = () => {
           </Link>
 
           {/* Grayed out - Coming Soon */}
-          <Text
+          <Box
             px={2}
             py={1}
             fontWeight="medium"
@@ -212,11 +257,17 @@ const NavBar = () => {
               color: "whiteAlpha.600",
             }}
           >
-            ค้นหาข้อมูลเชิงลึก
-            <Text fontSize="xs" color="whiteAlpha.400" mt={-1}>
+            <Text as="span">ข้อมูลเชิงลึก</Text>
+            <Text
+              as="span"
+              fontSize="xs"
+              color="whiteAlpha.400"
+              display="block"
+              mt={-1}
+            >
               (เร็วๆ นี้)
             </Text>
-          </Text>
+          </Box>
         </HStack>
 
         {/* Right side - Organization logos (desktop) and hamburger (mobile) */}
@@ -258,8 +309,8 @@ const NavBar = () => {
       {location.pathname === "/" && (
         <Flex
           bg="orange.100"
-          px={4}
-          py={2}
+          px={6}
+          py={3}
           display={{ base: "none", md: "flex" }}
           borderBottom="1px"
           borderColor={borderColor}
@@ -294,10 +345,13 @@ const NavBar = () => {
 
           <DrawerBody>
             <VStack spacing={6} align="start">
-              <MobileNavLink to="/" isActive={isActive("/")} onClick={onClose}>
-                <Text fontSize="xl" fontWeight="bold" color="white" mb={2}>
-                  🔍 ค้นหาเหมืองใกล้ฉัน
-                </Text>
+              <MobileNavLink
+                to="/"
+                isActive={isActive("/")}
+                onClick={onClose}
+                showIcon={true}
+              >
+                ค้นหาเหมืองใกล้ฉัน
               </MobileNavLink>
 
               <MobileNavLink
@@ -305,9 +359,7 @@ const NavBar = () => {
                 isActive={isActive("/cases")}
                 onClick={onClose}
               >
-                <Text fontSize="xl" fontWeight="bold" color="white" mb={2}>
-                  เรื่องจริงจากชุมชน
-                </Text>
+                เรื่องจริงจากชุมชน
               </MobileNavLink>
 
               <Link
@@ -327,18 +379,23 @@ const NavBar = () => {
                 แจ้งปัญหาจากพื้นที่
               </Link>
 
-              <Text
+              <Box
                 fontSize="xl"
                 fontWeight="bold"
                 color="whiteAlpha.500"
                 mb={2}
                 cursor="not-allowed"
               >
-                ค้นหาข้อมูลเชิงลึก
-                <Text fontSize="sm" color="whiteAlpha.400">
+                <Text as="span">ข้อมูลเชิงลึก</Text>
+                <Text
+                  as="span"
+                  fontSize="sm"
+                  color="whiteAlpha.400"
+                  display="block"
+                >
                   (เร็วๆ นี้)
                 </Text>
-              </Text>
+              </Box>
 
               {/* Organization logos in mobile - smaller and stacked */}
               <Box mt={8}>

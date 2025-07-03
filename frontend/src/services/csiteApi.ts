@@ -1,4 +1,5 @@
 // Service for integrating with C-Site external topic API via our backend
+// Backend now uses keyword filtering with "เหมือง" to fetch mining-related posts
 import type { Feature } from "geojson";
 
 export interface CSiteTopic {
@@ -62,6 +63,7 @@ export interface CSiteTopicFilter {
   datefrom?: string; // YYYY-MM-DD format
   dateto?: string; // YYYY-MM-DD format
   limit?: number; // Default 50
+  keyword?: string; // Search keyword (backend automatically uses "เหมือง" for mining)
 }
 
 const API_BASE_URL =
@@ -73,6 +75,7 @@ const ENABLE_CITIZEN_REPORTS =
 
 /**
  * Get nearby citizen reports for a specific mine
+ * Backend automatically filters for mining-related posts using keyword "เหมือง"
  */
 export async function getNearbyReports(
   mineFeature: Feature,
@@ -87,6 +90,7 @@ export async function getNearbyReports(
     const url = `${API_BASE_URL}/citizen-reports/nearby?${queryParams}`;
     console.log("🌐 Making API call to:", url);
     console.log("📍 Mine feature:", mineFeature);
+    console.log("🏷️ Backend filtering with keyword: เหมือง");
 
     const response = await fetch(url, {
       method: "POST",
@@ -108,6 +112,9 @@ export async function getNearbyReports(
 
     const result = await response.json();
     console.log("✅ API Response data:", result);
+    console.log(
+      `📊 Retrieved ${result.data?.length || 0} mining-related reports`
+    );
 
     if (!result.success) {
       throw new Error(result.message || "Failed to fetch reports");
@@ -115,13 +122,14 @@ export async function getNearbyReports(
 
     return result.data || [];
   } catch (error) {
-    console.error("Error getting nearby reports:", error);
+    console.error("Error getting nearby mining reports:", error);
     return [];
   }
 }
 
 /**
  * Fetch all citizen reports with optional filtering
+ * Backend automatically filters for mining-related posts using keyword "เหมือง"
  */
 export async function fetchAllReports(
   filter: CSiteTopicFilter = {}
@@ -132,15 +140,20 @@ export async function fetchAllReports(
     if (filter.dateto) queryParams.append("dateto", filter.dateto);
     if (filter.limit) queryParams.append("limit", filter.limit.toString());
 
-    const response = await fetch(
-      `${API_BASE_URL}/citizen-reports?${queryParams}`
-    );
+    const url = `${API_BASE_URL}/citizen-reports?${queryParams}`;
+    console.log("🌐 Fetching all mining reports from:", url);
+    console.log("🏷️ Backend filtering with keyword: เหมือง");
+
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error(`API error: ${response.status}`);
     }
 
     const result = await response.json();
+    console.log(
+      `📊 Retrieved ${result.data?.length || 0} total mining-related reports`
+    );
 
     if (!result.success) {
       throw new Error(result.message || "Failed to fetch reports");
@@ -148,7 +161,7 @@ export async function fetchAllReports(
 
     return result.data || [];
   } catch (error) {
-    console.error("Error fetching all reports:", error);
+    console.error("Error fetching all mining reports:", error);
     return [];
   }
 }
@@ -190,6 +203,10 @@ export function getRelativeTime(dateString: string): string {
   }
 }
 
+/**
+ * Fetch nearby citizen reports for a specific location
+ * Backend automatically filters for mining-related posts using keyword "เหมือง"
+ */
 export const fetchNearbyCitizenReports = async (location: {
   lat: number;
   lng: number;
@@ -202,10 +219,11 @@ export const fetchNearbyCitizenReports = async (location: {
 
   try {
     console.log(
-      "🌐 Fetching citizen reports from:",
+      "🌐 Fetching mining-related citizen reports from:",
       `${API_BASE_URL}/citizen-reports/nearby`
     );
     console.log("📍 Location:", location);
+    console.log("🏷️ Backend filtering with keyword: เหมือง");
 
     const response = await fetch(`${API_BASE_URL}/citizen-reports/nearby`, {
       method: "POST",
@@ -224,9 +242,15 @@ export const fetchNearbyCitizenReports = async (location: {
 
     const data = await response.json();
     console.log("✅ API Response:", data);
+    console.log(
+      `📊 Retrieved ${data.data?.length || data?.length || 0} mining-related reports`
+    );
     return data.data || data || []; // Handle different response formats
   } catch (error) {
-    console.error("Error fetching nearby citizen reports:", error);
+    console.error(
+      "Error fetching nearby mining-related citizen reports:",
+      error
+    );
     return []; // Return empty array instead of throwing
   }
 };
